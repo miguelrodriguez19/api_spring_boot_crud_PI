@@ -3,10 +3,10 @@ CREATE DATABASE api_proyecto_integrador CHARACTER SET Latin1 COLLATE latin1_span
 use api_proyecto_integrador;
 
 -- --------------------------------------------------------
-
+ 
 -- Estructura de tabla para la tabla `users`
 CREATE TABLE users(
-  cod_user int(11) NOT NULL,
+  cod_user int(11) NOT NULL AUTO_INCREMENT,
   name varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   surname varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   email varchar(350) COLLATE latin1_spanish_ci NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE users(
 CREATE TABLE notes (
   cod_note int(11) NOT NULL AUTO_INCREMENT,
   tittle varchar(300) COLLATE latin1_spanish_ci NOT NULL,
-  content text COLLATE latin1_spanish_ci NOT NULL,
+  content varchar(20000) COLLATE latin1_spanish_ci NOT NULL,
   creation_date datetime NOT NULL,
   modification_date datetime NOT NULL,
   cod_user int(11) NOT NULL,

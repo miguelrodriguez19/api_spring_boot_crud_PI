@@ -19,7 +19,7 @@ public class NoteController {
     @Autowired
     NoteServiceImpl noteServiceImpl;
 
-    @GetMapping("/all")
+    @GetMapping("")
     public List<Note> list() {
         return noteServiceImpl.listAllNotes();
     }
@@ -31,8 +31,8 @@ public class NoteController {
             try {
                 System.out.println(note.toString());
             } catch (Exception e) {
-                System.err.println("Error print note controller -> getNote(int)");
-            }
+                System.err.print("Error searching note by id <!> -- ");
+                e.printStackTrace();            }
             return new ResponseEntity<Note>(note, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Note>(HttpStatus.NOT_FOUND);
@@ -54,28 +54,39 @@ public class NoteController {
         }
     }
 */
-    @PostMapping("/post")
+    @PostMapping("/")
     //Este metodo guardará al usuario enviado
     public void add(@RequestBody Note note) {
-        noteServiceImpl.updateNote(note);
+        try {
+            noteServiceImpl.updateNote(note);
+        } catch (Exception e) {
+            System.err.print("Error adding note <!> -- ");
+            e.printStackTrace();
+        }
     }
 
-    @PutMapping("/put/{id}")
+    @PutMapping("/{id}/")
     public ResponseEntity<?> update(@RequestBody Note note, @PathVariable Integer id) {
         try {
-            Note existNote = noteServiceImpl.getNote(id);
             note.setCod_note(id);            
             noteServiceImpl.updateNote(note);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (NoSuchElementException e) {
+        } catch (Exception e) {
+            System.err.print("Error updating note <!> -- ");
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Integer id) {
-
-        noteServiceImpl.deleteNote(id);
+        try {
+            noteServiceImpl.deleteNote(id);
+        } catch (Exception e) {
+            System.err.print("Error deleting note <!> -- ");
+            e.printStackTrace();
+        }
+        
     }
 }
 
